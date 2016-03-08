@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Crear usuario</title>
+    </h:head>
+    <h:body>
+        <h2><h:outputLabel value="Introduzca los datos de usuario:" rendered="#{userBean.esCrearUsuario()}"/>  
+        <h:outputLabel value="Edite los datos de usuario:" rendered="#{userBean.esCrearUsuario()==false}"/>  </h2>        
+        <br/>
+        <h:form>
+            Nombre:     <h:inputText value="#{userBean.usuario.firstName}" /><br/>
+            Apellidos:  <h:inputText value="#{userBean.usuario.lastName}" /><br/>        
+            Email:      <h:inputText value="#{userBean.usuario.email}" /><br/>        
+            Contraseña: <h:inputSecret value="#{userBean.usuario.password}" /><br/>        
+            <h:commandButton value="Enviar" action="#{userBean.crearUsuario()}" />
+        </h:form>
+    </h:body>
+</html>
+
