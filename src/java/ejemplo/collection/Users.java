@@ -5,6 +5,7 @@
  */
 package ejemplo.collection;
 
+import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
  
@@ -16,7 +17,8 @@ public class Users {
  
     private String nombre;
     private String email;
- 
+    private List<Projects> lista_proyectos;
+    
     public Users() {}
 
     public String getId() {
@@ -41,6 +43,14 @@ public class Users {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Projects> getLista_proyectos() {
+        return lista_proyectos;
+    }
+
+    public void setLista_proyectos(List<Projects> lista_proyectos) {
+        this.lista_proyectos = lista_proyectos;
     }
 
  

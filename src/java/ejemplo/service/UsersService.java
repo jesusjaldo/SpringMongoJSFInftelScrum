@@ -9,11 +9,7 @@ import ejemplo.collection.Users;
 import ejemplo.repository.UsersRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +29,7 @@ public class UsersService {
     
     
 
-    public List<Users> findByEmail(String email) {
+    public Users findByEmail(String email) {
         
 //        Query a = new Query();
 //        a.addCriteria(Criteria.where("email").is(email));
@@ -43,7 +39,7 @@ public class UsersService {
         return repository.findUsersByEmail(email);
     }
     
-    public List<String> findEmails(){
+    public List<Users> findEmails(){
         return repository.findEmails();   
     }
 

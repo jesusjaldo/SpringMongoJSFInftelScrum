@@ -5,43 +5,42 @@
  */
 package ejemplo.bean;
 
-import ejemplo.collection.Status;
 import com.google.gson.Gson;
-import ejb.ProyectoScrumFacade;
-import ejb.UsuarioScrumFacade;
-import ejb.UsuyproScrumFacade;
+import ejemplo.collection.Projects;
+import ejemplo.collection.Status;
+import ejemplo.service.ProjectsService;
+import ejemplo.service.UsersService;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import model.ProyectoScrum;
-import model.UsuyproScrum;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author 
  */
-@ManagedBean
-@SessionScoped
-public class NewProjectBean {
+@Component
+@Scope("session")
+public class NewProjectBean implements Serializable{
 
-    @EJB
-    private UsuyproScrumFacade usuyproScrumFacade;
-
-    @ManagedProperty(value = "#{loginBean}")
-    protected LoginBean loginBean;
-
-    @EJB
-    private ProyectoScrumFacade proyectoScrumFacade;
+  
+     @Autowired
+    ProjectsService projectsService;
+    
+    @Autowired
+    UsersService usersService;
+    
+    @Autowired
+    LoginBean loginBean;
 
     protected String titulo;
     protected String descripcion;
-    protected ProyectoScrum proyecto;
+    protected Projects proyecto;
 
     //Jesus
     protected int numStatus;
@@ -50,7 +49,7 @@ public class NewProjectBean {
 
     @PostConstruct
     public void init() {
-        proyecto = new ProyectoScrum();
+        proyecto = new Projects();
 
         //Jesus
         numStatus = 0;
@@ -60,11 +59,11 @@ public class NewProjectBean {
     }
 
     public String doCrearProyecto() {
-        this.proyecto.setIdAdmin(loginBean.user);
+        proyecto.setAdmin(loginBean.user.getEmail());
         this.proyecto.setNombre(titulo);
         this.proyecto.setDescripcion(descripcion);
         Calendar fechaInicio = Calendar.getInstance();
-        this.proyecto.setFechaInicio(fechaInicio.getTime());
+        proyecto.setFecha_ini(fechaInicio.getTime().toString());
         //JESUS
         Gson gson = new Gson();
         String stringJson = gson.toJson(status);
@@ -74,27 +73,30 @@ public class NewProjectBean {
 
         System.out.println("JSON\n " + s);
 
-        this.proyecto.setEstados(arrayByteJson);
+        //this.proyecto.setEstados(arrayByteJson);
         //hasta aqui
-        ProyectoScrum p = proyecto;
-        this.proyectoScrumFacade.create(proyecto);
-        loginBean.user.getProyectoScrumCollection().add(p);
+        List<String> users = new ArrayList<>();
+        users.add(loginBean.user.getEmail());
+        proyecto.setUsuarios(users);
+        Projects p = proyecto;
+        this.projectsService.createProjects(proyecto);
+        // ????? loginBean.user.getLista_proyectos().add(p);
 
-        List<ProyectoScrum> findProyect = proyectoScrumFacade.findProyect(loginBean.user.getIdUsuario(), titulo, descripcion);
-        if (!findProyect.isEmpty()) {
-            UsuyproScrum uyp = new UsuyproScrum();
-            uyp.setIdUsuario(loginBean.user);
-            uyp.setIdProyecto(findProyect.get(0));
-            usuyproScrumFacade.create(uyp);
-            loginBean.user.getUsuyproScrumCollection().add(uyp);
-        }
+//        List<ProyectoScrum> findProyect = proyectoScrumFacade.findProyect(loginBean.user.getIdUsuario(), titulo, descripcion);
+//        if (!findProyect.isEmpty()) {
+//            UsuyproScrum uyp = new UsuyproScrum();
+//            uyp.setIdUsuario(loginBean.user);
+//            uyp.setIdProyecto(findProyect.get(0));
+//            usuyproScrumFacade.create(uyp);
+//            loginBean.user.getUsuyproScrumCollection().add(uyp);
+//        }
 
         //JESUS
         titulo = "";
         descripcion = "";
         numStatus = 0;
         status = new ArrayList<>();
-        proyecto = new ProyectoScrum();
+        proyecto = new Projects();
 
 
         //
@@ -102,11 +104,11 @@ public class NewProjectBean {
 
     }
 
-    public ProyectoScrum getProyecto() {
+    public Projects getProyecto() {
         return proyecto;
     }
 
-    public void setProyecto(ProyectoScrum proyecto) {
+    public void setProyecto(Projects proyecto) {
         this.proyecto = proyecto;
     }
 

@@ -34,8 +34,6 @@ function onSignIn(googleUser) {
     $("#token").attr("value", id_token); 
     $("#ac_token").attr("value", access_token);
     $(".enviarGoogle").click();
-    
-    //window.location.replace("myProjects.xhtml");
 };
 
 

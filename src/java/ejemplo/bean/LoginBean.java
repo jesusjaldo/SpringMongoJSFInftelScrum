@@ -5,36 +5,34 @@
  */
 package ejemplo.bean;
 
-import ejb.ProyectoScrumFacade;
-import ejb.UsuarioScrumFacade;
-import java.util.List;
+
+import ejemplo.collection.Projects;
+import ejemplo.collection.Users;
+import ejemplo.service.UsersService;
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import model.ProyectoScrum;
-import model.UsuarioScrum;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author inftel20
  */
-@ManagedBean
-@SessionScoped
-public class LoginBean {
-    @EJB
-    private ProyectoScrumFacade proyectoScrumFacade;
-    @EJB
-    private UsuarioScrumFacade usuarioScrumFacade;
+@Component
+@Scope("session")
+public class LoginBean implements Serializable{
+
     
-    
+    @Autowired
+    UsersService usersService;
 
     protected boolean sesion;
-    protected UsuarioScrum user;
+    protected Users user;
     protected String image;
-    protected ProyectoScrum selectedProject;
+    protected Projects selectedProject;
     
     
     
@@ -47,7 +45,7 @@ public class LoginBean {
     @PostConstruct
     public void init(){
         this.sesion = false;
-        this.user = new UsuarioScrum();
+        this.user = new Users();
     }
 
     public boolean isSesion() {
@@ -58,11 +56,11 @@ public class LoginBean {
         this.sesion = sesion;
     }
 
-    public UsuarioScrum getUser() {
+    public Users getUser() {
         return user;
     }
 
-    public void setUser(UsuarioScrum user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 
@@ -74,11 +72,12 @@ public class LoginBean {
         this.image = image;
     }
 
-    public ProyectoScrum getSelectedProject() {
-        return proyectoScrumFacade.find(selectedProject.getIdProyecto());
+    public Projects getSelectedProject() {
+        //return proyectoScrumFacade.find(selectedProject.getIdProyecto());
+        return selectedProject;
     }
 
-    public void setSelectedProject(ProyectoScrum selectedProject) {
+    public void setSelectedProject(Projects selectedProject) {
         this.selectedProject = selectedProject;
     }
     
@@ -88,28 +87,24 @@ public class LoginBean {
         String nombre = context.getExternalContext().getRequestParameterMap().get("nombre");
         String imagen = context.getExternalContext().getRequestParameterMap().get("imagen");
         String email = context.getExternalContext().getRequestParameterMap().get("email");
-        //String token = context.getExternalContext().getRequestParameterMap().get("token");
-        String ac_token = context.getExternalContext().getRequestParameterMap().get("ac_token");
         
        user.setNombre(nombre);
        user.setEmail(email);
-       //user.setToken(token);
-       user.setRefreshToken(ac_token);
         
-        List<UsuarioScrum> findByEmail = usuarioScrumFacade.findByEmail(email);
-        if(findByEmail.isEmpty()){
-           usuarioScrumFacade.create(user);
-           List<UsuarioScrum> findByEmail1 = usuarioScrumFacade.findByEmail(email);
-           user = findByEmail1.get(0);
+        Users findByEmail = usersService.findByEmail(email);
+        if(findByEmail == null){
+           usersService.createUser(user);
+           Users findByEmail1 = usersService.findByEmail(email);
+           user = findByEmail1;
         }else{
-            user = findByEmail.get(0);
+            user = findByEmail;
         }
 
         image = imagen;
         
         sesion = true;
         
-        return ("myProjects");
+        return ("profile");
     }
     
     public String salir(){
@@ -120,7 +115,7 @@ public class LoginBean {
     }
     
     public void refresh(){
-        this.user = usuarioScrumFacade.findByEmail(this.user.getEmail()).get(0);
+        this.user = usersService.findByEmail(this.user.getEmail());
     }
     
 }

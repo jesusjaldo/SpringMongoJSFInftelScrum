@@ -5,18 +5,14 @@
  */
 package ejemplo.bean;
 
+import ejemplo.collection.Projects;
 import java.util.Properties;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import model.ProyectoScrum;
 
 /**
  *
@@ -27,10 +23,10 @@ public class SendMailBean extends Thread{
 
     protected Properties properties = new Properties();
     protected Session session;
-    public ProyectoScrum project;
+    public Projects project;
     public String emailReceptror;
 
-    public SendMailBean(ProyectoScrum project, String emailReceptror) {
+    public SendMailBean(Projects project, String emailReceptror) {
         this.project = project;
         this.emailReceptror = emailReceptror;
     }
@@ -51,7 +47,7 @@ public class SendMailBean extends Thread{
 
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailReceptror));
             message.setSubject("Eres un nuevo miembro del proyecto :" + project.getNombre());
-            message.setText(project.getIdAdmin().getNombre()+ " te ha añadido como miembro de un nuevo proyecto");
+            message.setText(project.getAdmin() + " te ha añadido como miembro de un nuevo proyecto");
            
             Transport t = session.getTransport("smtp");
             t.connect((String) properties.get("mail.smtp.user"), "637212375");

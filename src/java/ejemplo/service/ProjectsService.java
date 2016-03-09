@@ -6,16 +6,11 @@
 package ejemplo.service;
 
 import ejemplo.collection.Projects;
-import ejemplo.collection.Users;
 import ejemplo.repository.ProjectsRepository;
-import ejemplo.repository.UsersRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -49,4 +44,24 @@ public class ProjectsService  {
     public void editProjects (Projects p) {
         repository.save(p);
     }
+    
+    public List<Projects> listaProyectos(String email){
+        
+//        List<Projects> myProjects = null;
+//        List<Projects> findAll = repository.findAll();
+//        for (Projects f : findAll) {
+//            List<String> usuarios = f.getUsuarios();
+//            for (String u : usuarios) {
+//                if(u.equals(email)){
+//                    myProjects.add(f);
+//                }
+//                
+//            }
+//            
+//        }
+//        return myProjects;
+        return repository.getlistaProyectos(email);
+    }
+    
+  
 }
