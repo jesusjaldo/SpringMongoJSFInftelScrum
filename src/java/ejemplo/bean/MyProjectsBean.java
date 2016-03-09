@@ -41,7 +41,7 @@ public class MyProjectsBean implements Serializable {
 
     protected String invitacion;
     protected String invitar;
-    protected List<String> mails;
+    protected List<String> mails = new ArrayList<>();
     protected Properties properties = new Properties();
     protected Session session;
     protected List<Projects> myProjects;
@@ -55,25 +55,12 @@ public class MyProjectsBean implements Serializable {
 
     @PostConstruct
     public void init() {
-       
-        
+ 
         myProjects = projectsService.listaProyectos(loginBean.getUser().getEmail());
-        
-        List<Projects> myP = new ArrayList<>();
-        List<Projects> findAll = projectsService.findAllProjects();
-        for (Projects f : findAll) {
-            List<String> usuarios = f.getUsuarios();
-            for (String u : usuarios) {
-                if(u.equals(loginBean.getUser().getEmail())){
-                    myP.add(f);
-                }
-                
-            }
-            
+        List <Users> mail = usersService.findAllUsers();
+        for (Users m : mail) {
+            mails.add(m.getEmail());
         }
-         
-        myProjects = myP;
-        List <Users> mai = usersService.findEmails();
         invitacion = "";
     }
 

@@ -12,7 +12,7 @@
     <h:form rendered="#{myProjectsBean.myProjects.size() gt 0}" id="invitado">
 
         <p:growl id="msgs" showDetail="true" />
-        <p:autoComplete  c:placeholder="Invitar" value="#{myProjectsBean.invitacion}" completeMethod="#{myProjectsBean.invitacion}">
+        <p:autoComplete  c:placeholder="Invitar" value="#{myProjectsBean.invitacion}" completeMethod="#{myProjectsBean.completeMail}">
             <p:ajax update="@form" />
         </p:autoComplete>    
         <ui:repeat var="project" value="#{myProjectsBean.myProjects}">   

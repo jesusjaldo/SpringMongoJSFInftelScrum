@@ -60,7 +60,7 @@ public class ProjectsService  {
 //            
 //        }
 //        return myProjects;
-        return repository.getlistaProyectos(email);
+        return repository.findByUsuarios(email);
     }
     
   

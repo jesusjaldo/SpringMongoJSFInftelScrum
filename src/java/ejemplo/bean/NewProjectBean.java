@@ -5,7 +5,6 @@
  */
 package ejemplo.bean;
 
-import com.google.gson.Gson;
 import ejemplo.collection.Projects;
 import ejemplo.collection.Status;
 import ejemplo.service.ProjectsService;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.SessionScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -64,34 +62,22 @@ public class NewProjectBean implements Serializable{
         this.proyecto.setDescripcion(descripcion);
         Calendar fechaInicio = Calendar.getInstance();
         proyecto.setFecha_ini(fechaInicio.getTime().toString());
-        //JESUS
-        Gson gson = new Gson();
-        String stringJson = gson.toJson(status);
-        byte[] arrayByteJson = stringJson.getBytes();
+//        //JESUS
+//        Gson gson = new Gson();
+//        String stringJson = gson.toJson(status);
+//        byte[] arrayByteJson = stringJson.getBytes();
+//
+//        String s = new String(arrayByteJson);
+//
+//        System.out.println("JSON\n " + s);
 
-        String s = new String(arrayByteJson);
-
-        System.out.println("JSON\n " + s);
-
-        //this.proyecto.setEstados(arrayByteJson);
-        //hasta aqui
+        proyecto.setEstados(status);
         List<String> users = new ArrayList<>();
         users.add(loginBean.user.getEmail());
         proyecto.setUsuarios(users);
         Projects p = proyecto;
         this.projectsService.createProjects(proyecto);
-        // ????? loginBean.user.getLista_proyectos().add(p);
 
-//        List<ProyectoScrum> findProyect = proyectoScrumFacade.findProyect(loginBean.user.getIdUsuario(), titulo, descripcion);
-//        if (!findProyect.isEmpty()) {
-//            UsuyproScrum uyp = new UsuyproScrum();
-//            uyp.setIdUsuario(loginBean.user);
-//            uyp.setIdProyecto(findProyect.get(0));
-//            usuyproScrumFacade.create(uyp);
-//            loginBean.user.getUsuyproScrumCollection().add(uyp);
-//        }
-
-        //JESUS
         titulo = "";
         descripcion = "";
         numStatus = 0;
