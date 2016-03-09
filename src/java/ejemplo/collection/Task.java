@@ -20,6 +20,8 @@ public class Task {
     String nombre_usuario;
     String fichero;
     String nombre_fichero;
+    String fecha_ini;
+    String fecha_fin;
 
     public Task() {
     }
@@ -86,6 +88,22 @@ public class Task {
 
     public void setNombre_fichero(String nombre_fichero) {
         this.nombre_fichero = nombre_fichero;
+    }
+
+    public String getFecha_ini() {
+        return fecha_ini;
+    }
+
+    public void setFecha_ini(String fecha_ini) {
+        this.fecha_ini = fecha_ini;
+    }
+
+    public String getFecha_fin() {
+        return fecha_fin;
+    }
+
+    public void setFecha_fin(String fecha_fin) {
+        this.fecha_fin = fecha_fin;
     }
     
     
