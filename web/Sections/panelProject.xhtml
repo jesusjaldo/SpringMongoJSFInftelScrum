@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <style type="text/css">
+        .ui-dashboard-column {
+            width: 206px;
+            border-style:solid;
+            border-width:1px;
+            height: 100px;
+
+        }
+    </style>
+
+    <div class="row">
+        <div class="box">
+            <div class="col-lg-12">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading"><p:outputLabel value="#{loginBean.selectedProject.nombre}"/><div hidden="true" id="userName">#{loginBean.user.nombre}</div> <h2 hidden="true" id="projectid">#{loginBean.selectedProject.idProyecto}</h2></div>
+                    <div class="panel-body">
+                        <div style="height:500px" >
+                            <h:form id="formulario">
+                                <p:growl id="msgs" showDetail="true" />
+
+                                <c:forEach items="#{manageProjectBean.status}" var="status">
+                                    <h:outputLabel class="etiquetaScrum" id="etiqueta" value="#{status.nombre}"/>
+                                </c:forEach>
+
+                                <p:dashboard id="board" model="#{dashboardView.model}">
+                                    <p:ajax event="reorder" listener="#{dashboardView.handleReorder}" update="msgs" />
+
+                                    <c:forEach  items="#{loginBean.selectedProject.tareaScrumCollection}" var="task">
+
+                                        <p:panel closable="true" id="t#{task.idTarea}" header="#{task.nombre}">
+                                            <h:outputText value="#{task.descripcion}"/>
+                                            
+                                                <p:commandButton rendered="#{task.idFichero!=null}" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                                                    <p:fileDownload value="#{fileDownloadView.fileMon(task)}" />
+                                                </p:commandButton>
+                                           
+
+                                            <script type="text/javascript">
+                                                function start() {
+                                                    PF('statusDialog').show();
+                                                }
+
+                                                function stop() {
+                                                    PF('statusDialog').hide();
+                                                }
+                                            </script>
+                                            <p:ajax event="close" listener="#{dashboardView.handleClose}" update="msgs" />
+                                        </p:panel>
+
+
+                                    </c:forEach>
+                                </p:dashboard> 
+                                <div style="clear:both" />
+
+
+                            </h:form>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</html>
+

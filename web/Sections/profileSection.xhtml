@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <div class="container">
+        <div class="row" >
+            <div class="col-md-6 col-md-offset-3">
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+
+
+                            <img  src="#{loginBean.image}" alt="" class="img-rounded img-responsive" />
+
+                        </div>
+                        <div class="col-sm-6 col-md-8">
+                            <h4 id="userName"> #{loginBean.user.nombre}</h4>
+                            
+                            <p>
+                                <i class="glyphicon glyphicon-envelope"></i>#{loginBean.user.email}
+                            </p>
+                            <!-- Split button -->
+                            <div class="btn-group">
+                                <h:form>
+                                    <div hidden="true" class="g-signin2"  data-onsuccess="onSignIn" wdata-theme="dark"></div>
+                                   <h:commandButton class="btn btn-primary"  value="Cerrar sesion"  onclick="signOut()" action="#{loginBean.salir()}" ></h:commandButton>
+                                </h:form>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>

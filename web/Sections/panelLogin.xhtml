@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 col-md-offset-3"  >
+
+                <h:form>
+                    <p:panel id="panel" header="Log-in Google" style="margin-bottom:10px;">
+                        <div class="g-signin2"  data-onsuccess="onSignIn" wdata-theme="dark"></div>
+
+
+
+
+                        <input id="nombre" type="hidden" name="nombre" value =""></input>
+                        <input id="imagen" type="hidden" name="imagen" value =""></input>
+                        <input id="email" type="hidden" name="email" value =""></input>
+                        <input id="token" type="hidden" name="token" value =""></input>    
+                        <input id="ac_token" type="hidden" name="ac_token" value =""></input> 
+
+                        <input id="logout" type="hidden" name="logout" value =""></input>
+
+                        <div hidden="true">
+                            <h:commandButton class="enviarGoogle" value="Enviar" action="#{loginBean.anadir()}"></h:commandButton>
+                        </div>
+                    </p:panel>
+                </h:form>
+
+            </div>
+        </div>
+    </div>
+</html>
+

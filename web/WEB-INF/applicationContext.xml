@@ -22,8 +22,8 @@
     <context:component-scan base-package="ejemplo.bean" />    
    
 
-    <mongo:mongo host="127.0.0.1" port="27017"/>
-    <mongo:db-factory dbname="SocialDB"/>
+    <mongo:mongo host="192.168.1.141" port="27017"/>
+    <mongo:db-factory dbname="test"/>
     
 
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">

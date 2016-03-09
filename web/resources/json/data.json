@@ -1,0 +1,15 @@
+[
+   {
+      "nombre":"to do",
+      "posicion":0
+   },
+   {
+      "nombre":"doing",
+      "posicion":1
+   },
+   {
+      "nombre":"done",
+      "posicion":2
+   }
+   
+]

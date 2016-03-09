@@ -16,9 +16,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UsersRepository extends MongoRepository<Users, String>{
     @Query("{'email': ?0 }")
-    public Users findUsersByEmail(String email);
-    
-    
-    @Query("{'firstname':{$regex: '.*?0.*' }}")
-    public List<Users> findUsersByName(String name);
+    public List<Users> findUsersByEmail(String email);
+
+    @Query("{'email': '$all'}")
+    public List<String> findEmails();
+ 
+    @Query("{'nombre':{$regex: '.*?0.*' }}")
+    public List<Users> findUsersByName(String nombre);
 }

@@ -9,6 +9,11 @@ import ejemplo.collection.Users;
 import ejemplo.repository.UsersRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -18,23 +23,30 @@ public class UsersService {
 
     @Autowired
     private UsersRepository repository;
+    
+   @Autowired
+    private MongoOperations mongoOp;    
 
     public UsersRepository getRepository() {
         return repository;
     }
+    
+    
 
-    public Users findByEmail(String email) {
+    public List<Users> findByEmail(String email) {
+        
 //        Query a = new Query();
 //        a.addCriteria(Criteria.where("email").is(email));
-//        ApplicationContext ac = new GenericXmlApplicationContext("SpringConfig.xml");
-//        MongoOperations mongoO = (MongoOperations) ac.getBean("mongoTemplate");
-//
-//        Users u = mongoO.findOne(a, Users.class);
-//        return u;
+////      ApplicationContext ac = new GenericXmlApplicationContext("SpringConfig.xml");
+////      MongoOperations mongoO = (MongoOperations) ac.getBean("mongoTemplate");
+//        Users u = mongoOp.findOne(a, Users.class);
         return repository.findUsersByEmail(email);
     }
     
-    
+    public List<String> findEmails(){
+        return repository.findEmails();   
+    }
+
     public List<Users> findUsersByName(String name){
         return repository.findUsersByName(name);
     }

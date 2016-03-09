@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <div class="row">
+        <div class="box">
+            <div class="col-lg-12" >
+                <h:form class="form-horizontal">
+
+                    <h:outputLabel   class="col-sm-3 control-label">Estados en el proyecto :</h:outputLabel>
+                    <h:selectOneMenu value="#{newProjectBean.numStatus}" class="btn btn-primary">
+                        <f:selectItem itemValue="1" itemLabel="1" />
+                        <f:selectItem itemValue="2" itemLabel="2" />
+                        <f:selectItem itemValue="3" itemLabel="3" />
+                        <f:selectItem itemValue="4" itemLabel="4" />
+                        <f:selectItem itemValue="5" itemLabel="5" />
+                        <f:selectItem itemValue="6" itemLabel="6" />
+                        <f:selectItem itemValue="7" itemLabel="7" />
+                        <f:selectItem itemValue="8" itemLabel="8" />
+                    </h:selectOneMenu>	
+                    <h:commandButton value="Crear estados" action="#{newProjectBean.doObtenerNumEstados}" class="btn btn-primary" style="margin-left: 10%"/>
+                    <br/><br/><br/>
+
+                </h:form>
+                <br/>
+                <h:form class="form-horizontal">
+                    <div class="form-group">
+                        <h:outputLabel  for="titulo" class="col-sm-2 control-label">Titulo :</h:outputLabel>
+
+                        <div class="col-sm-10">
+                            <h:inputText  class="form-control" id="titulo" value="#{newProjectBean.titulo}" required="true" requiredMessage="Titulo es obligatorio!"></h:inputText>
+                            <h:message class="error" for="titulo" style="color: #c7254e"/>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel  for="descripcion" class="col-sm-2 control-label">Descripción :</h:outputLabel>
+                        <div class="col-sm-10">
+                            <h:inputTextarea class="form-control" rows="3" id="descripcion" value="#{newProjectBean.descripcion}" required="true" requiredMessage="Texto es obligatorio!"></h:inputTextarea>
+                            <h:message class="error" for="descripcion" style="color: #c7254e"/>
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+                    <br/>
+                    <ui:repeat  var="estados" value="#{newProjectBean.status}" varStatus="variable">
+                        <br/><br/><h:outputLabel   class="col-sm-2 control-label">Estado #{variable.index}:</h:outputLabel>
+
+
+                        <div class="col-sm-10">
+                            <h:inputText  value="#{newProjectBean.status[variable.index].nombre}"  id="estados" required="true" requiredMessage="Estado es obligatorio" /><br/>
+                            <h:message class="error" for="estados" style="color: #c7254e"/>
+
+                        </div>
+
+                    </ui:repeat>
+
+                    <br/><br/>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <h:commandButton value="Crear Proyecto" action="#{newProjectBean.doCrearProyecto}" class="btn btn-primary" rendered="#{newProjectBean.numStatus != 0}" />
+
+                        </div>
+                    </div>
+
+
+
+                </h:form>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</html>
+
+
+

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <h:form rendered="#{myProjectsBean.usuyproScrumCollection.size() gt 0}" id="invitado">
+
+        <p:growl id="msgs" showDetail="true" />
+        <p:autoComplete  c:placeholder="Invitar" value="#{myProjectsBean.invitacion}" completeMethod="#{myProjectsBean.completeMail}">
+            <p:ajax update="@form" />
+        </p:autoComplete>    
+        <ui:repeat var="project" value="#{myProjectsBean.usuyproScrumCollection}">            
+
+            <p:accordionPanel multiple="true">
+                <p:tab title="#{project.idProyecto.nombre}">
+                    <p:panelGrid columns="2" layout="grid">
+                       
+                        <h:outputText value="Acceder"/>
+                        <h:commandButton action="#{myProjectsBean.goToProject(project.idProyecto)}"  style="width:25px;height:25px" image="resources/img/kuba-flecha-boton-set-imagenes-predisenadas_423353.jpg"/>
+
+
+
+                        <h:outputText value="ID: "/>
+                        <h:outputText value="#{project.idProyecto.idProyecto}"/>
+
+                        <h:outputText value="Descripcion: "/>
+                        <h:outputText value="#{project.idProyecto.descripcion}"/>
+                        
+                        <p:commandButton  value="Invitar" action="#{myProjectsBean.enviar(project.idProyecto)}" update="messages">
+                             <f:ajax render="invitado" resetValues="true"/>
+                        </p:commandButton>
+                        <h:commandButton value="Editar Proyecto" action="#{myProjectsBean.goToEditProject(project.idProyecto)}" rendered="#{project.idProyecto.idAdmin eq loginBean.user}"></h:commandButton>
+
+                        <h:commandButton value="Borrar" action="#{myProjectsBean.deleteProject(project)}"/>
+                        <p:messages id="messages" showDetail="true" closable="true" severity="info,warn,fatal" />
+                    </p:panelGrid>
+                </p:tab>      
+            </p:accordionPanel>
+
+
+
+        </ui:repeat>
+    </h:form>
+
+    <h:form rendered="#{myProjectsBean.usuyproScrumCollection.size() == 0}">
+        <p:growl id="msgs" showDetail="true" />
+        <p:fieldset legend="NO PROJECTS" toggleable="False">           
+        </p:fieldset>
+    </h:form>
+
+</html>
+
+

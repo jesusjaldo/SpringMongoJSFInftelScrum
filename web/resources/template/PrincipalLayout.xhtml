@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <ui:insert name="Head"/>
+    </h:head>
+    <h:body>
+
+        <ui:insert name="PanelHeader"/>
+
+        <div class="container">
+
+            <ui:insert name="PanelImage"/>
+
+            <ui:insert name="PanelDescription"/>
+        </div>
+
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <ui:insert name="PanelPreFooter"/>
+                        <ui:insert name="PanelFooter"/>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </h:body>
+</html>
+

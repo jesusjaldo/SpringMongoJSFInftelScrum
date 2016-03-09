@@ -14,58 +14,25 @@ public class Users {
     @Id
     private String id;
  
-    private String firstname;
-    private String lastname;
+    private String nombre;
     private String email;
-    private String password;
  
     public Users() {}
- 
-    public Users(String firstName, String lastName) {
-        this.firstname = firstName;
-        this.lastname = lastName;
-    }
- 
-    /**
-     * @return the id
-     */
+
     public String getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(String id) {
         this.id = id;
     }
 
-    /**
-     * @return the firstName
-     */
-    public String getFirstName() {
-        return firstname;
+    public String getNombre() {
+        return nombre;
     }
 
-    /**
-     * @param firstName the firstName to set
-     */
-    public void setFirstName(String firstName) {
-        this.firstname = firstName;
-    }
-
-    /**
-     * @return the lastName
-     */
-    public String getLastName() {
-        return lastname;
-    }
-
-    /**
-     * @param lastName the lastName to set
-     */
-    public void setLastName(String lastName) {
-        this.lastname = lastName;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getEmail() {
@@ -76,13 +43,8 @@ public class Users {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
+ 
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
         
         
 }
