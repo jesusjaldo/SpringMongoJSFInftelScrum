@@ -12,12 +12,12 @@
     <h:form rendered="#{myProjectsBean.myProjects.size() gt 0}" id="invitado">
 
         <p:growl id="msgs" showDetail="true" />
-<!--<p:autoComplete  c:placeholder="Invitar" value="#{myProjectsBean.invitacion}" completeMethod="#{myProjectsBean.invitacion}">
+        <p:autoComplete  c:placeholder="Invitar" value="#{myProjectsBean.invitacion}" completeMethod="#{myProjectsBean.invitacion}">
             <p:ajax update="@form" />
-        </p:autoComplete>-->    
+        </p:autoComplete>    
         <ui:repeat var="project" value="#{myProjectsBean.myProjects}">   
            
-            <h:outputText value="#{project.nombre}"/>
+            
             <p:accordionPanel multiple="true">
                 <p:tab title="#{project.nombre}">
                     <p:panelGrid columns="2" layout="grid">
@@ -34,7 +34,7 @@
                         <h:outputText value="#{project.descripcion}"/>
                         
                         <p:commandButton  value="Invitar" action="#{myProjectsBean.enviar(project)}" update="messages">
-                             <!--<f:ajax render="invitado" resetValues="true"/>-->
+                             <f:ajax render="invitado" resetValues="true"/>
                         </p:commandButton>
                         <h:commandButton value="Editar Proyecto" action="#{myProjectsBean.goToEditProject(project)}" rendered="#{project.admin eq loginBean.user.email}"></h:commandButton>
 
