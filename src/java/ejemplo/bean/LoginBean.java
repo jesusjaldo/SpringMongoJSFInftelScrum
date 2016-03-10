@@ -104,7 +104,7 @@ public class LoginBean implements Serializable{
         
         sesion = true;
         
-        return ("profile");
+        return ("myProjects");
     }
     
     public String salir(){
