@@ -55,9 +55,9 @@ public class MyProjectsBean implements Serializable {
 
     @PostConstruct
     public void init() {
- 
+
         myProjects = projectsService.listaProyectos(loginBean.getUser().getEmail());
-        List <Users> mail = usersService.findAllUsers();
+        List<Users> mail = usersService.findAllUsers();
         for (Users m : mail) {
             mails.add(m.getEmail());
         }
@@ -79,8 +79,9 @@ public class MyProjectsBean implements Serializable {
         Users usuariosInvitados = usersService.findByEmail(invitacion);
 
         if (usuariosInvitados != null) {
-            if (project.getUsuarios().contains(usuariosInvitados.getEmail())) {
+            if (!project.getUsuarios().contains(usuariosInvitados.getEmail())) {
                 project.getUsuarios().add(usuariosInvitados.getEmail());
+                projectsService.editProjects(project);
                 SendMailBean hebra = new SendMailBean(project, invitacion);
                 hebra.start();
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Invitacion", "El usuario " + invitacion + " ha sido invitado");
@@ -100,19 +101,26 @@ public class MyProjectsBean implements Serializable {
 
     public String goToProject(Projects projectId) {
 
-        loginBean.selectedProject = projectId;
+        loginBean.setSelectedProject(projectId);
         return "manageProject";
     }
 
     public String goToEditProject(Projects projectId) {
-        loginBean.selectedProject = projectId;
+        loginBean.setSelectedProject(projectId);
         return "editProject";
     }
 
     public String deleteProject(Projects project) {
+        if (project.getAdmin().equals(loginBean.getUser().getEmail())) {
+            myProjects.remove(project);
+            projectsService.deleteProjects(project);
+            
+        }else{
+            project.getUsuarios().remove(loginBean.getUser().getEmail());
+            myProjects.remove(project);
+            projectsService.editProjects(project);
+        }
 
-        projectsService.deleteProjects(project);
-        loginBean.getUser().getLista_proyectos().remove(project);
         return "myProjects";
     }
 
