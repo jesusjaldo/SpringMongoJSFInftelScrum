@@ -63,5 +63,8 @@ public class ProjectsService  {
         return repository.findByUsuarios(email);
     }
     
+    public Projects findOne(String idProject){
+        return repository.findOne(idProject);
+    }
   
 }

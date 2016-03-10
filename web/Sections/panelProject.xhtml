@@ -21,27 +21,30 @@
             <div class="col-lg-12">
 
                 <div class="panel panel-default">
-                    <div class="panel-heading"><p:outputLabel value="#{loginBean.selectedProject.nombre}"/><div hidden="true" id="userName">#{loginBean.user.nombre}</div> <h2 hidden="true" id="projectid">#{loginBean.selectedProject.idProyecto}</h2></div>
+                    <div class="panel-heading"><p:outputLabel value="#{loginBean.selectedProject.nombre}"/>
+                        <div hidden="true" id="userName">#{loginBean.user.nombre}</div> 
+                        <h2 hidden="true" id="projectid">#{loginBean.selectedProject.id_proyecto}</h2></div>
+                        
                     <div class="panel-body">
                         <div style="height:500px" >
                             <h:form id="formulario">
                                 <p:growl id="msgs" showDetail="true" />
 
-                                <c:forEach items="#{manageProjectBean.status}" var="status">
+                                <c:forEach items="#{dashboardView.status}" var="status">
                                     <h:outputLabel class="etiquetaScrum" id="etiqueta" value="#{status.nombre}"/>
                                 </c:forEach>
 
                                 <p:dashboard id="board" model="#{dashboardView.model}">
                                     <p:ajax event="reorder" listener="#{dashboardView.handleReorder}" update="msgs" />
 
-                                    <c:forEach  items="#{loginBean.selectedProject.tareaScrumCollection}" var="task">
+                                    <c:forEach  items="#{loginBean.selectedProject.tareas}" var="task">
 
-                                        <p:panel closable="true" id="t#{task.idTarea}" header="#{task.nombre}">
-                                            <h:outputText value="#{task.descripcion}"/>
+                                        <p:panel closable="true" id="t#{task.id_tarea}" header="#{task.nombre_tarea}">
+                                            <h:outputText value="#{task.description}"/>
                                             
-                                                <p:commandButton rendered="#{task.idFichero!=null}" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                                          <!--<p:commandButton rendered="#{task.idFichero!=null}" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
                                                     <p:fileDownload value="#{fileDownloadView.fileMon(task)}" />
-                                                </p:commandButton>
+                                                </p:commandButton>-->
                                            
 
                                             <script type="text/javascript">
