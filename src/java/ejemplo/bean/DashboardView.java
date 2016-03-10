@@ -24,11 +24,12 @@ import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
 import org.primefaces.model.DefaultDashboardModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
  
 @Component
-@Scope("session")
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class DashboardView implements Serializable {
        
     @Autowired
@@ -54,19 +55,19 @@ public class DashboardView implements Serializable {
     
     public void RefreshDash(){
         model = new DefaultDashboardModel();
-        columns = new ArrayList<DefaultDashboardColumn>();
+        columns = new ArrayList<>();
         
-        for(int i=0; i<3; i++){
+        for(int i=0; i<loginBean.selectedProject.getEstados().size(); i++){
             columns.add(new DefaultDashboardColumn());
-            columns.get(i).addWidget("teee");   
         }         
         
-        
-        for(Task t: loginBean.selectedProject.getTareas()){  //Add task to column          
-            columns.get(Integer.parseInt(t.getEstado_tarea())).addWidget("t"+t.getId_tarea());   
+        if(!loginBean.selectedProject.getTareas().isEmpty()){
+            for(Task t: loginBean.selectedProject.getTareas()){  //Add task to column          
+                columns.get(Integer.parseInt(t.getEstado_tarea())).addWidget("t"+t.getId_tarea());   
+            }
         }
              
-        for(int x=0; x<3; x++){ 
+        for(int x=0; x<loginBean.selectedProject.getEstados().size();  x++){ 
             model.addColumn(columns.get(x));
         }    
     }
@@ -121,15 +122,24 @@ public class DashboardView implements Serializable {
     }*/
     public void handleClose(CloseEvent event) {
         
-        System.out.println("cierroooo");
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Panel Closed", "Closed panel id:'" + event.getComponent().getId() + "'");
+        
+        System.out.println("closeeeeeeeeeeee");
+                
+         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Panel Closed", "Closed panel id:'" + event.getComponent().getId() + "'");
         //DELETE TASK
         String idT = event.getComponent().getId();
         String id=idT.substring(1);
-       // manageProjectBean.deleteTask(id);
         
-        //tareaScrumFacade.remove(tareaScrumFacade.find(event.getComponent().getId()));
-        addMessage(message);
+        
+        List<Task> lista_tareas = loginBean.selectedProject.getTareas();
+        for (Task task : lista_tareas) {
+             if(task.getId_tarea().equals(id)){
+                lista_tareas.remove(task);
+                projectsService.editProjects(loginBean.selectedProject);
+                addMessage(message);
+            }
+        }
+       
     }
      
     public void handleToggle(ToggleEvent event) {

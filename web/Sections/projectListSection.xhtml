@@ -8,7 +8,6 @@
       xmlns:p="http://primefaces.org/ui">
 
 
-
     <h:form rendered="#{myProjectsBean.myProjects.size() gt 0}" id="invitado">
 
         <p:growl id="msgs" showDetail="true" />
@@ -16,15 +15,14 @@
             <p:ajax update="@form" />
         </p:autoComplete>    
         <ui:repeat var="project" value="#{myProjectsBean.myProjects}">   
-           
-            
+
+
             <p:accordionPanel multiple="true">
                 <p:tab title="#{project.nombre}">
-                    <p:panelGrid columns="2" layout="grid">
-                       
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-responsive">
+
                         <h:outputText value="Acceder"/>
                         <h:commandButton action="#{myProjectsBean.goToProject(project)}"  style="width:25px;height:25px" image="resources/img/kuba-flecha-boton-set-imagenes-predisenadas_423353.jpg"/>
-
 
 
                         <h:outputText value="ID: "/>
@@ -32,14 +30,23 @@
 
                         <h:outputText value="Descripcion: "/>
                         <h:outputText value="#{project.descripcion}"/>
+                        <f:facet name="footer">
+                            <h:commandButton class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only myButton" value="Editar Proyecto" action="#{myProjectsBean.goToEditProject(project)}" rendered="#{project.admin eq loginBean.user.email}"/>
+                            <h:commandButton class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only myButton" value="Borrar" action="#{myProjectsBean.deleteProject(project)}"/>
                         
-                        <p:commandButton  value="Invitar" action="#{myProjectsBean.enviar(project)}" update="messages">
-                             <f:ajax render="invitado" resetValues="true"/>
-                        </p:commandButton>
-                        <h:commandButton value="Editar Proyecto" action="#{myProjectsBean.goToEditProject(project)}" rendered="#{project.admin eq loginBean.user.email}"></h:commandButton>
+                            
+                                
+                            
+                                
+                        <p:spacer height="50"/>
+                            <p:commandButton  class="btn-primary" value="Invitar" action="#{myProjectsBean.enviar(project)}" update="messages">
+                                <f:ajax render="formulario" listener="#{myProjectsBean.enviar(project)}"/>
+                            </p:commandButton>
 
-                        <h:commandButton value="Borrar" action="#{myProjectsBean.deleteProject(project)}"/>
-                        <p:messages id="messages" showDetail="true" severity="info,warn,fatal" closable="true"/>
+
+
+                            <p:messages id="messages" showDetail="true" severity="info,warn,fatal" closable="true"/>
+                        </f:facet>
                     </p:panelGrid>
                 </p:tab>      
             </p:accordionPanel>

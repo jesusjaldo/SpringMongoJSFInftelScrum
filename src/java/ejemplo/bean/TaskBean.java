@@ -40,6 +40,8 @@ public class TaskBean implements Serializable{
     @Autowired
     LoginBean loginBean;
 
+    @Autowired
+    DashboardView dashboardView;
 
     protected String titulo;
     protected String descripcion;
@@ -153,7 +155,7 @@ public class TaskBean implements Serializable{
         Calendar cal = Calendar.getInstance();
         t.setFecha_ini(cal.getTime().toString());
         t.setId_tarea(String.valueOf(System.currentTimeMillis()));
-
+        t.setNombre_usuario(loginBean.user.getNombre());
         if (!file.getFileName().equals("")) {
 
             byte[] bytes = IOUtils.toByteArray(file.getInputstream());
@@ -175,16 +177,27 @@ public class TaskBean implements Serializable{
         }
         
         
-        
+        dashboardView.RefreshDash();
 
         projectsService.editProjects(selectedProject);
-
+        loginBean.setSelectedProject(selectedProject);
         message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Tarea", "La tarea se ha creado correctamente");
         FacesContext.getCurrentInstance().addMessage(null, message);
         context.addCallbackParam("loggedIn", loggedIn);
 
         return "";
 
+    }
+    
+    public void editar(Task task){
+        List<Task> tareas = loginBean.selectedProject.getTareas();
+        for (Task t : tareas) {
+            if(t.getId_tarea().equals(task.getId_tarea())){
+                tareas.remove(t);
+                tareas.add(t);
+                projectsService.editProjects(loginBean.selectedProject);
+            }
+        }
     }
 
 }

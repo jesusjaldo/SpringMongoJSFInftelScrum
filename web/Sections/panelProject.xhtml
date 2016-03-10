@@ -8,10 +8,10 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <style type="text/css">
         .ui-dashboard-column {
-            width: 206px;
+            width: 250px;
             border-style:solid;
             border-width:1px;
-            height: 100px;
+            height: 300px;
 
         }
     </style>
@@ -39,13 +39,64 @@
 
                                     <c:forEach  items="#{loginBean.selectedProject.tareas}" var="task">
 
-                                        <p:panel closable="true" id="t#{task.id_tarea}" header="#{task.nombre_tarea}">
-                                            <h:outputText value="#{task.description}"/>
+                                        <p:panel closable="true" toggleable="true"  id="t#{task.id_tarea}" header="#{task.nombre_tarea}">
 
-                                            <p:commandButton rendered="#{task.nombre_fichero!=null}" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
-                                                <p:fileDownload value="#{fileDownloadView.fileMon(task)}" />
-                                            </p:commandButton>
+                                            <p:commandButton value="Detalles" type="button" onclick="PF('dlg#{task.id_tarea}').show();"/> 
+                                            <p:commandButton value="Editar" type="button" onclick="PF('d#{task.id_tarea}').show();"/>
 
+                                            <p:dialog header="Editar tarea" style="overflow-y: auto;" widgetVar="d#{task.id_tarea}" modal="true" minimizable="true"  closeOnEscape="true" closable="true" responsive="true">
+                                                 <h:panelGrid columns="2" cellpadding="5">
+                                                    <h:outputLabel for="titulo" value="Título:" />
+                                                    <p:inputText id="titulo"  value="#{task.nombre_tarea}" required="true" label="titulo" />
+
+                                                    <h:outputLabel for="descripcion" value="Descripción:" />
+                                                    <p:inputTextarea id="descripcion"  value="#{task.description}" required="true" label="titulo" />
+                                                    
+                                                    <p:outputLabel  value="Estados:" />
+                                                    <p:selectOneMenu value="#{taskBean.estadoSeleccionado}" style="width:150px">
+                                                        <c:forEach items="#{taskBean.estados}" var="sele">
+                                                            <f:selectItem itemLabel="#{sele.nombre}" itemValue="#{sele.posicion}" /> 
+                                                        </c:forEach>
+                                                    </p:selectOneMenu>
+                                                    
+                                                    <p:outputLabel value="Tiempo:" />
+                                                    <p:calendar value="#{taskBean.tiempo}"  pattern="HH:mm" timeOnly="true"  />
+                                                    
+                                                    <p:outputLabel for="file" value="Archivo:" />
+                                                    <p:fileUpload id="file" value="#{taskBean.file}" accept=".pdf,.jar,.txt,image/*" mode="simple" skinSimple="true" sizeLimit="1000000"/>
+                                                    <br/>
+                                                    <p:growl id="messages" showDetail="true" />
+                                                    
+                                                    <f:facet name="footer">
+                                                        <p:commandButton value="Editar" ajax="false" update="growl" action="#{taskBean.editar(task)}"
+                                                                         oncomplete="handleLoginRequest(xhr, status, args)" >
+                                                        </p:commandButton>
+
+                                                    </f:facet> 
+                                                </h:panelGrid>
+                                            </p:dialog>
+
+                                            <p:dialog header="Detalles de la tarea" style="overflow-y: auto;" widgetVar="dlg#{task.id_tarea}" modal="true" minimizable="true"  closeOnEscape="true" closable="true" responsive="true">
+                                                <h:panelGrid border="1" columns="2" cellpadding="5">
+                                                    <p:outputLabel value="Descripción: "/>
+                                                    <h:outputLabel value=" #{task.description}"/>
+                                                    <p:outputLabel value="Usuario: " />
+                                                    <h:outputText value=" #{task.nombre_usuario}"/>
+                                                    <p:outputLabel value="Fecha Inicio: " />
+                                                    <h:outputText value=" #{task.fecha_ini}">
+                                                        <f:convertDateTime locale="es" pattern="HH:mm" />
+                                                    </h:outputText>
+                                                    <p:outputLabel value="Tiempo estimado:" />
+                                                    <h:outputText value=" #{task.tiempo_estimado}">
+                                                        <f:convertDateTime pattern="HH:mm" />
+                                                    </h:outputText>
+                                                    <p:outputLabel value="Fichero :" rendered="#{task.nombre_fichero!=null}"/>
+                                                    <p:commandButton rendered="#{task.nombre_fichero!=null}" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                                                        <p:fileDownload value="#{fileDownloadView.fileMon(task)}" />
+                                                    </p:commandButton>
+
+                                                </h:panelGrid>
+                                            </p:dialog>
 
                                             <script type="text/javascript">
                                                 function start() {

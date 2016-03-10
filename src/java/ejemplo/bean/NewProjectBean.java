@@ -72,6 +72,7 @@ public class NewProjectBean implements Serializable{
 //        System.out.println("JSON\n " + s);
 
         proyecto.setEstados(status);
+        proyecto.setTareas(new ArrayList<>());
         List<String> users = new ArrayList<>();
         users.add(loginBean.user.getEmail());
         proyecto.setUsuarios(users);

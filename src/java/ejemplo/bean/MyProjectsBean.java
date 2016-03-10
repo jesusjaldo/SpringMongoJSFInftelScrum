@@ -38,6 +38,8 @@ public class MyProjectsBean implements Serializable {
 
     @Autowired
     LoginBean loginBean;
+    
+   
 
     protected String invitacion;
     protected String invitar;
@@ -112,7 +114,12 @@ public class MyProjectsBean implements Serializable {
 
     public String deleteProject(Projects project) {
         if (project.getAdmin().equals(loginBean.getUser().getEmail())) {
+            project.setUsuarios(new ArrayList<>());
+            project.setTareas(new ArrayList<>());
+            project.setChat(new ArrayList<>());
+            project.setEstados(new ArrayList<>());
             myProjects.remove(project);
+            projectsService.editProjects(project);
             projectsService.deleteProjects(project);
             
         }else{
