@@ -9,6 +9,8 @@ import ejemplo.collection.Projects;
 import ejemplo.collection.Status;
 import ejemplo.collection.Task;
 import ejemplo.service.ProjectsService;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -159,9 +161,12 @@ public class TaskBean implements Serializable{
         if (!file.getFileName().equals("")) {
 
             byte[] bytes = IOUtils.toByteArray(file.getInputstream());
-            
-            t.setFichero("hay que añadir el archivo");
+            String realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+            t.setFichero("/resources/files/" + file.getFileName());
             t.setNombre_fichero(file.getFileName());
+            FileOutputStream os = new FileOutputStream(realPath + "resources/files/" + file.getFileName());
+            os.write(bytes);
+            os.close();
         }
         Projects selectedProject = loginBean.getSelectedProject();
         
