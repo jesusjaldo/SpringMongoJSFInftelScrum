@@ -20,9 +20,7 @@ public class ProjectsService  {
 
     @Autowired
     private ProjectsRepository repository;
-    
-   @Autowired
-    private MongoOperations mongoOp;    
+
 
     public ProjectsRepository getRepository() {
         return repository;
@@ -46,25 +44,11 @@ public class ProjectsService  {
     }
     
     public List<Projects> listaProyectos(String email){
-        
-//        List<Projects> myProjects = null;
-//        List<Projects> findAll = repository.findAll();
-//        for (Projects f : findAll) {
-//            List<String> usuarios = f.getUsuarios();
-//            for (String u : usuarios) {
-//                if(u.equals(email)){
-//                    myProjects.add(f);
-//                }
-//                
-//            }
-//            
-//        }
-//        return myProjects;
+
         return repository.findByUsuarios(email);
     }
     
-    public Projects findOne(String idProject){
-        return repository.findOne(idProject);
+    public Projects findProjectsById(String id_project){
+        return repository.findOne(id_project);
     }
-  
 }
