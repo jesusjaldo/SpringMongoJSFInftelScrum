@@ -61,12 +61,7 @@
                                                     
                                                     <p:outputLabel value="Tiempo:" />
                                                     <p:calendar value="#{taskBean.tiempo}"  pattern="HH:mm" timeOnly="true"  />
-                                                    
-                                                    <p:outputLabel for="file" value="Archivo:" />
-                                                    <p:fileUpload id="file" value="#{taskBean.file}" accept=".pdf,.jar,.txt,image/*" mode="simple" skinSimple="true" sizeLimit="1000000"/>
-                                                    <br/>
-                                                    <p:growl id="messages" showDetail="true" />
-                                                    
+                                   
                                                     <f:facet name="footer">
                                                         <p:commandButton value="Editar" ajax="false" update="growl" action="#{taskBean.editar(task)}"
                                                                          oncomplete="handleLoginRequest(xhr, status, args)" >

@@ -11,7 +11,7 @@
  */
 
 window.onload = init;
-var socket = new WebSocket("ws://localhost:8080/SpringMongoJSFInftelScrum/actions/" + document.getElementById("projectid").innerHTML);
+var socket = new WebSocket("ws://192.168.1.141:8080/SpringMongoJSFInftelScrum/actions/" + document.getElementById("projectid").innerHTML);
 socket.onmessage = onMessage;
 var pretimemessage = "<li class=\"right clearfix\"><span class=\"chat-img pull-right\"> </span> <div class=\"chat-body clearfix\"> <div class=\"header\"> <small class=\" text-muted\"><span class=\"glyphicon glyphicon-time\"></span>";
 var prenamemessage = "</small> <strong class=\"pull-right primary-font\">";

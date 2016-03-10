@@ -50,6 +50,7 @@ public class TaskBean implements Serializable{
     protected String estadoSeleccionado;
     protected Date tiempo;
     protected UploadedFile file;
+    protected UploadedFile fileN;
     protected List<Status> estados;
 
     /**
@@ -137,6 +138,15 @@ public class TaskBean implements Serializable{
         this.loginBean = loginBean;
     }
 
+    public UploadedFile getFileN() {
+        return fileN;
+    }
+
+    public void setFileN(UploadedFile fileN) {
+        this.fileN = fileN;
+    }
+    
+
     public String login() throws IOException {
 
         Task t = new Task();
@@ -194,8 +204,9 @@ public class TaskBean implements Serializable{
 
     }
     
-    public void editar(Task task){
+    public void editar(Task task) throws IOException{
         List<Task> tareas = loginBean.selectedProject.getTareas();
+       
         for (Task t : tareas) {
             if(t.getId_tarea().equals(task.getId_tarea())){
                 tareas.remove(t);
