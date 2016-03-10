@@ -39,7 +39,7 @@
                             
                                 
                         <p:spacer height="50"/>
-                            <p:commandButton  class="btn-primary" value="Invitar" action="#{myProjectsBean.enviar(project)}" update="messages">
+                        <p:commandButton rendered="#{project.admin eq loginBean.user.email}"  class="btn-primary" value="Invitar" action="#{myProjectsBean.enviar(project)}" update="messages">
                                 <f:ajax render="formulario" listener="#{myProjectsBean.enviar(project)}"/>
                             </p:commandButton>
 

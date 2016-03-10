@@ -114,6 +114,8 @@ public class MyProjectsBean implements Serializable {
 
     public String deleteProject(Projects project) {
         if (project.getAdmin().equals(loginBean.getUser().getEmail())) {
+            
+            //Al no funcionar el método remove, lo que se hace es eliminar los usuarios del proyecto y los datos del proyecto para que no se los traiga
             project.setUsuarios(new ArrayList<>());
             project.setTareas(new ArrayList<>());
             project.setChat(new ArrayList<>());

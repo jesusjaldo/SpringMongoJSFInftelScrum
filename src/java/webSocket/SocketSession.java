@@ -52,8 +52,13 @@ public class SocketSession {
         if (!Objects.equals(this.idproject, other.idproject)) {
             return false;
         }
+        if (!Objects.equals(this.session, other.session)) {
+            return false;
+        }
         return true;
     }
+
+ 
     
     
     

@@ -59,7 +59,13 @@ public class DeviceSessionHandler {
         ss.setIdproject(idProject);
         ss.setSession(session);
         socketSessions.remove(ss);
-        if(!socketSessions.contains(ss)){
+        int i = 0;
+        for(SocketSession so : socketSessions){
+            if(so.getIdproject().equalsIgnoreCase(idProject)){
+                i++;
+            }
+        }
+        if(i == 0){
         ProjectChat pc = new ProjectChat();
         pc.setProjectId(idProject);
         saveChat(idProject);
