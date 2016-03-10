@@ -24,7 +24,7 @@
                     <div class="panel-heading"><p:outputLabel value="#{loginBean.selectedProject.nombre}"/>
                         <div hidden="true" id="userName">#{loginBean.user.nombre}</div> 
                         <h2 hidden="true" id="projectid">#{loginBean.selectedProject.id_proyecto}</h2></div>
-                        
+
                     <div class="panel-body">
                         <div style="height:500px" >
                             <h:form id="formulario">
@@ -41,11 +41,11 @@
 
                                         <p:panel closable="true" id="t#{task.id_tarea}" header="#{task.nombre_tarea}">
                                             <h:outputText value="#{task.description}"/>
-                                            
-                                          <!--<p:commandButton rendered="#{task.idFichero!=null}" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
-                                                    <p:fileDownload value="#{fileDownloadView.fileMon(task)}" />
-                                                </p:commandButton>-->
-                                           
+
+                                            <p:commandButton rendered="#{task.nombre_fichero!=null}" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                                                <p:fileDownload value="#{fileDownloadView.fileMon(task)}" />
+                                            </p:commandButton>
+
 
                                             <script type="text/javascript">
                                                 function start() {

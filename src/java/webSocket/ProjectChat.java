@@ -46,7 +46,7 @@ public class ProjectChat implements Serializable{
         
         
         this.projectId = projectId;
-        Projects p = projectsService.findOne(projectId);
+        Projects p = projectsService.findProjectsById(projectId);
         mychat = p.getChat();
 //        ProyectoScrum ps = proyectoScrumFacade.getProject(projectId);
 //        byte[] oldchat = ps.getChat();
@@ -106,7 +106,7 @@ public class ProjectChat implements Serializable{
 //        byte[] newchat = toByteArray.getBytes();
 //        ps.setChat(newchat);
 //        proyectoScrumFacade.edit(ps);
-        Projects p = projectsService.findOne(projectId);
+        Projects p = projectsService.findProjectsById(projectId);
         p.setChat(mychat);
         projectsService.editProjects(p);
     }

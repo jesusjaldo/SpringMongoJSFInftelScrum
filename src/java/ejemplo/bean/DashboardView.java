@@ -7,6 +7,8 @@ package ejemplo.bean;
 
 
 import ejemplo.collection.Status;
+import ejemplo.collection.Task;
+import ejemplo.service.ProjectsService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,8 @@ public class DashboardView implements Serializable {
     @Autowired
     LoginBean loginBean;
     
-    
+        @Autowired
+    ProjectsService projectsService;
    
     private DashboardModel model;
    
@@ -59,9 +62,9 @@ public class DashboardView implements Serializable {
         }         
         
         
-        /*//for(TareaScrum t: loginBean.selectedProject.getTareaScrumCollection()){  //Add task to column          
-            columns.get(Integer.parseInt(t.getEstado())).addWidget("t"+t.getIdTarea().toString());   
-        }*/
+        for(Task t: loginBean.selectedProject.getTareas()){  //Add task to column          
+            columns.get(Integer.parseInt(t.getEstado_tarea())).addWidget("t"+t.getId_tarea());   
+        }
              
         for(int x=0; x<3; x++){ 
             model.addColumn(columns.get(x));
@@ -74,16 +77,22 @@ public class DashboardView implements Serializable {
      
     public void handleReorder(DashboardReorderEvent event) {
         
-        /*String idT = event.getWidgetId();
+        String idT = event.getWidgetId();
         String id = idT.substring(1);
         
         FacesMessage message = new FacesMessage();
         message.setSeverity(FacesMessage.SEVERITY_INFO);
         message.setSummary("Cambio de estado: " + event.getWidgetId());
         message.setDetail("Item index: " + event.getItemIndex() + ", Column index: " + event.getColumnIndex() + ", Sender index: " + event.getSenderColumnIndex());
+        List<Task> lista_tareas = loginBean.selectedProject.getTareas();
+        for (Task task : lista_tareas) {
+             if(task.getId_tarea().equals(id)){
+                task.setEstado_tarea(event.getColumnIndex().toString());
+            }
+        }
+        projectsService.editProjects(loginBean.selectedProject);
         
-        //manageProjectBean.setTaskStatus(id, event.getColumnIndex().toString());
-        addMessage(message);*/
+        addMessage(message);
     }
 
     public DashboardModel getModel() {
@@ -148,11 +157,6 @@ public class DashboardView implements Serializable {
 //        }
 //   
 //    } 
-//    public void setTaskStatus(String id, String status){
-//        TareaScrum find = tareaScrumFacade.find(Long.valueOf(id));
-//        find.setEstado(status);
-//        tareaScrumFacade.edit(find);
-//               
-//    }
+    
     
 }

@@ -6,6 +6,7 @@
 package ejemplo.service;
 
 import ejemplo.collection.Projects;
+import ejemplo.collection.Task;
 import ejemplo.repository.ProjectsRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,17 @@ public class ProjectsService  {
     public void editProjects (Projects p) {
         repository.save(p);
     }
+    
+    /*public void editTask(Projects p, Task t){
+        List<Task> lista_tareas = p.getTareas();
+        
+        for (Task task : lista_tareas){
+            if(task.getId_tarea()==(t.getId_tarea())){
+                task.setEstado_tarea(t.getEstado_tarea());
+            }
+        }
+        repository.save(p);   
+    }*/
     
     public List<Projects> listaProyectos(String email){
 

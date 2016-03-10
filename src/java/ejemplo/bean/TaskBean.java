@@ -152,6 +152,7 @@ public class TaskBean implements Serializable{
         t.setTiempo_estimado(insertarTiempo.toString());
         Calendar cal = Calendar.getInstance();
         t.setFecha_ini(cal.getTime().toString());
+        t.setId_tarea(String.valueOf(System.currentTimeMillis()));
 
         if (!file.getFileName().equals("")) {
 
