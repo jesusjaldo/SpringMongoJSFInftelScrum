@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import ejemplo.collection.MessageChat;
 import java.io.IOException;
 import java.io.StringReader;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.logging.Level;
@@ -20,18 +21,19 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonReader;
 import javax.websocket.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @ApplicationScoped
 public class DeviceSessionHandler {
+    
     private final ArrayList<SocketSession> socketSessions = new ArrayList<>();
+
     private final HashSet<ProjectChat> projectChats = new HashSet<>();    
     @PostConstruct
     public void afterCreate() {
         System.out.println("ChatSessionHandler created");
     }        
     
-    public void addSocketSession(String idProject, Session session) {
+    public void addSocketSession(String idProject, Session session) throws UnknownHostException {
         SocketSession ss = new SocketSession();
         ss.setIdproject(idProject);
         ss.setSession(session);
@@ -52,7 +54,7 @@ public class DeviceSessionHandler {
     }
 
 
-    public void removeSocketSession(String idProject, Session session){
+    public void removeSocketSession(String idProject, Session session) throws UnknownHostException{
         SocketSession ss = new SocketSession();
         ss.setIdproject(idProject);
         ss.setSession(session);
@@ -112,7 +114,7 @@ public class DeviceSessionHandler {
 
     private void sendChatToSession(ProjectChat pc, Session session) {
         Gson gson = new Gson();
-        JsonReader reader = Json.createReader(new StringReader(gson.toJson(pc.getMychat())));
+        JsonReader reader = Json.createReader(new StringReader(gson.toJson(pc.getMychat().getMychat())));
         JsonArray jsonMessage = reader.readArray();
         sendToSession(session, jsonMessage);
     }    

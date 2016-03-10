@@ -1,9 +1,11 @@
+package ejemplo.collection;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejemplo.collection;
+
 
 /**
  *
@@ -15,9 +17,9 @@ public class MessageChat {
     protected String nombre;
     protected String fecha;
     
-    MessageChat(){}
+    public MessageChat(){}
     
-    MessageChat(String nombre, String mensaje, String fecha){
+    public MessageChat(String nombre, String mensaje, String fecha){
         this.nombre = nombre;
         this.mensaje = mensaje;
         this.fecha = fecha;

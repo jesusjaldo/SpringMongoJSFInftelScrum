@@ -5,6 +5,7 @@
  */
 package webSocket;
 
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -31,13 +32,13 @@ public class DeviceWebSocketServer {
     }    
 
     @OnOpen
-        public void open(@PathParam("idproject") String projectId, Session session) {
+        public void open(@PathParam("idproject") String projectId, Session session) throws UnknownHostException {
             System.out.println("Session creada " + projectId + " " + session);
             sessionHandler.addSocketSession(projectId, session);
     }
 
     @OnClose
-        public void close(@PathParam("idproject") String projectId, Session session) {
+        public void close(@PathParam("idproject") String projectId, Session session) throws UnknownHostException {
             System.out.println("Session cerrada " + projectId + " " + session);
             sessionHandler.removeSocketSession(projectId, session);
     }
