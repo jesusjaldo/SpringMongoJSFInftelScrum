@@ -6,11 +6,11 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    
+
     <h:outputStylesheet library="css" name="chat.css"  />
-        <!--WebSocket-->
+    <!--WebSocket-->
     <h:outputScript library="js" name="websocket.js" />
-    
+
     <h:outputScript library="js" name="bootstrap.min.js" />
 
     <div id="chat">
@@ -24,22 +24,19 @@
                         </a>
                     </div>
                 </div>
-            <div class="panel-collapse collapse" id="collapseOne">
-                <div class="panel-body">
-                    <ul class="chat">
-                        <div id="newmessage"></div>
-                    </ul>
-                </div>
-                <div class="panel-footer">
-                    <div class="input-group">
-                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
-                        <span class="input-group-btn">
-                            <button class="btn btn-warning btn-sm" id="btn-chat" onclick="sendMessage()">
-                                Send</button>
-                        </span>
+                <div class="panel-collapse collapse" id="collapseOne">
+                    <div class="panel-body">
+                        <ul class="chat">
+                            <div id="newmessage"></div>
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            <textarea id="btn-input" class="form-control input-sm" placeholder="Type your message here..." />
+                            <button class="btn btn-warning btn-sm" id="btn-chat" onclick="sendMessage()">Send</button>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
     </div>

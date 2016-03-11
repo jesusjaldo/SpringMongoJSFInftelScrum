@@ -1,6 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="resources/template/PrincipalLayout.xhtml">
+                template="resources/template/PrincipalLayout.xhtml"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="Head">
         <ui:include src="/Sections/head.xhtml"/>
@@ -19,15 +20,21 @@
     <ui:define name="PanelFooter">
         <ui:include src="/Sections/PanelIcono.xhtml"/>
     </ui:define>-->
-    
+
     <ui:define name="PanelDescription">
-        <ui:include src="/Sections/panelProject.xhtml"/>
         <ui:include src="/Sections/panelTask.xhtml"/>
+        <ui:include src="/Sections/panelProject.xhtml"/>
+
+        <p:panel id="opnl">
+            <ui:include id="onnl" src="/Sections/chat.xhtml"/>
+            <p:draggable for="opnl" opacity="0.3" />
+        </p:panel>
+        
     </ui:define>
 
-    
+
     <ui:define name="PanelFooter">
-                <ui:include src="/Sections/chat.xhtml"/>
+        
     </ui:define>
 
 </ui:composition>

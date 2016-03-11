@@ -6774,3 +6774,13 @@ button.close {
 .myButton {
     padding: .3em 1em !important;	
 }
+
+.abcRioButton {
+    left: 200px;
+}
+
+.ui-draggable{
+    background-color: transparent !important;
+    border: black;
+}
+
