@@ -54,7 +54,7 @@ public class SendMailBean extends Thread{
             t.sendMessage(message, message.getAllRecipients());
           
            
-              System.out.println("mensaje  mandado");
+            System.out.println("mensaje  mandado");
             t.close();
             this.stop();
         } catch (MessagingException me) {

@@ -48,11 +48,8 @@ public class NewProjectBean implements Serializable{
     @PostConstruct
     public void init() {
         proyecto = new Projects();
-
-        //Jesus
         numStatus = 0;
         status = new ArrayList<>();
-        //
 
     }
 
@@ -62,15 +59,6 @@ public class NewProjectBean implements Serializable{
         this.proyecto.setDescripcion(descripcion);
         Calendar fechaInicio = Calendar.getInstance();
         proyecto.setFecha_ini(fechaInicio.getTime().toString());
-//        //JESUS
-//        Gson gson = new Gson();
-//        String stringJson = gson.toJson(status);
-//        byte[] arrayByteJson = stringJson.getBytes();
-//
-//        String s = new String(arrayByteJson);
-//
-//        System.out.println("JSON\n " + s);
-
         proyecto.setEstados(status);
         proyecto.setTareas(new ArrayList<>());
         List<String> users = new ArrayList<>();
@@ -84,9 +72,7 @@ public class NewProjectBean implements Serializable{
         numStatus = 0;
         status = new ArrayList<>();
         proyecto = new Projects();
-
-
-        //
+        
         return "myProjects";
 
     }
@@ -142,17 +128,11 @@ public class NewProjectBean implements Serializable{
     public String doObtenerNumEstados() {
 
         status = new ArrayList<>();
-        //int i = Integer.parseInt(username);
-        System.out.println("numero " + numStatus);
         Status est;
         for (int j = 0; j < numStatus; j++) {
             est = new Status("", j);
-
             status.add(est);
-
         }
-
-        System.out.println("");
 
         return "newProject";
     }

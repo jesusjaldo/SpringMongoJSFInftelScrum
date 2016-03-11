@@ -17,7 +17,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.mail.Session;
-import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -115,7 +114,13 @@ public class MyProjectsBean implements Serializable {
     public String deleteProject(Projects project) {
         if (project.getAdmin().equals(loginBean.getUser().getEmail())) {
             
-            //Al no funcionar el método remove, lo que se hace es eliminar los usuarios del proyecto y los datos del proyecto para que no se los traiga
+            /*Al no funcionarnos el método remove, lo que se hace es eliminar los usuarios del proyecto 
+            y los datos del proyecto para que no se los traiga y editarlo en la bbdd
+
+            Debería ser:
+            myProjects.remove(project);
+            projectsService.deleteProjects(project);
+            */
             project.setUsuarios(new ArrayList<>());
             project.setTareas(new ArrayList<>());
             project.setChat(new ArrayList<>());

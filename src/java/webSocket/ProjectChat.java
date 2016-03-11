@@ -35,8 +35,6 @@ public class ProjectChat implements Serializable {
     DBCollection coleccion;
 
     private Gson gson = new Gson();
-//    protected String projectId;
-//    protected List<MessageChat> mychat = new ArrayList<>();
     private String projectId;
     public Chat mychat;
 
@@ -130,10 +128,6 @@ public class ProjectChat implements Serializable {
         BasicDBList dblist = gson.fromJson(gson.toJson(this.mychat.getMychat()), BasicDBList.class);
         BasicDBObject myobje = new BasicDBObject("_id", this.mychat.getId()).append("projectId", this.mychat.getProjectId()).append("mychat", dblist);
         coleccion.save(myobje);
-//        String toByteArray = gson.toJson(mychat);
-//        byte[] newchat = toByteArray.getBytes();
-//        ps.setChat(newchat);
-//        proyectoScrumFacade.edit(ps);
         mongo.close();
     }
 

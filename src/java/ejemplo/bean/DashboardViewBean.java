@@ -30,7 +30,7 @@ import org.springframework.stereotype.Component;
  
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class DashboardView implements Serializable {
+public class DashboardViewBean implements Serializable {
        
     @Autowired
     LoginBean loginBean;
@@ -111,15 +111,7 @@ public class DashboardView implements Serializable {
     public void setStatus(List<Status> status) {
         this.status = status;
     }
-     
-    
-    
-    
-/*   public void addStatus(TareaScrum t){     
-        
-       columns.get(Integer.parseInt(t.getEstado())).addWidget("t"+t.getIdTarea().toString());
-             
-    }*/
+
     public void handleClose(CloseEvent event) {
         
         
@@ -145,28 +137,11 @@ public class DashboardView implements Serializable {
     public void handleToggle(ToggleEvent event) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, event.getComponent().getId() + " toggled", "Status:" + event.getVisibility().name());
         //CHANGE TASK STATUS
-        
-       // manageProjectBean.setTaskStatus(event.getComponent().getId(), event.getVisibility().name());
         addMessage(message);
     }
      
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
-    }
- 
-//      public void deleteTask(String id){
-//        System.out.println("llego "+id );
-//        TareaScrum find = tareaScrumFacade.find(Long.valueOf(id));
-//        tareaScrumFacade.remove(find);
-//        loginBean.selectedProject.getTareaScrumCollection().remove(find);
-//        proyectoScrumFacade.edit(loginBean.selectedProject);
-//        
-//        if(find.getIdFichero()!=null){
-//            System.out.println("tiene fichero");
-//            ficherosScrumFacade.remove(find.getIdFichero());
-//        }
-//   
-//    } 
-    
+    }   
     
 }

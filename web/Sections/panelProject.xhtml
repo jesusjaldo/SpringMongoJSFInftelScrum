@@ -11,7 +11,9 @@
             width: 250px;
             border-style:solid;
             border-width:1px;
-            height: 300px;
+            border-bottom: 0px;
+            height: 600px;
+            margin-left: 7px;
 
         }
     </style>
@@ -30,12 +32,12 @@
                             <h:form id="formulario">
                                 <p:growl id="msgs" showDetail="true" />
 
-                                <c:forEach items="#{dashboardView.status}" var="status">
+                                <c:forEach items="#{dashboardViewBean.status}" var="status">
                                     <h:outputLabel class="etiquetaScrum" id="etiqueta" value="#{status.nombre}"/>
                                 </c:forEach>
 
-                                <p:dashboard id="board" model="#{dashboardView.model}">
-                                    <p:ajax event="reorder" listener="#{dashboardView.handleReorder}" update="msgs" />
+                                <p:dashboard id="board" model="#{dashboardViewBean.model}">
+                                    <p:ajax event="reorder" listener="#{dashboardViewBean.handleReorder}" update="msgs" />
 
                                     <c:forEach  items="#{loginBean.selectedProject.tareas}" var="task">
 
@@ -87,7 +89,7 @@
                                                     </h:outputText>
                                                     <p:outputLabel value="Fichero :" rendered="#{task.nombre_fichero!=null}"/>
                                                     <p:commandButton rendered="#{task.nombre_fichero!=null}" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
-                                                        <p:fileDownload value="#{fileDownloadView.fileMon(task)}" />
+                                                        <p:fileDownload value="#{fileDownloadViewBean.fileMon(task)}" />
                                                     </p:commandButton>
 
                                                 </h:panelGrid>
@@ -102,7 +104,7 @@
                                                     PF('statusDialog').hide();
                                                 }
                                             </script>
-                                            <p:ajax event="close" listener="#{dashboardView.handleClose}" update="msgs" />
+                                            <p:ajax event="close" listener="#{dashboardViewBean.handleClose}" update="msgs" />
                                         </p:panel>
 
 

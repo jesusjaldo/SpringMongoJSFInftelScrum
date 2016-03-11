@@ -73,7 +73,6 @@ public class LoginBean implements Serializable{
     }
 
     public Projects getSelectedProject() {
-        //return proyectoScrumFacade.find(selectedProject.getIdProyecto());
         return selectedProject;
     }
 

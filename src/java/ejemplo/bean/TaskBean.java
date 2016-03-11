@@ -9,7 +9,6 @@ import ejemplo.collection.Projects;
 import ejemplo.collection.Status;
 import ejemplo.collection.Task;
 import ejemplo.service.ProjectsService;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
@@ -43,7 +42,7 @@ public class TaskBean implements Serializable{
     LoginBean loginBean;
 
     @Autowired
-    DashboardView dashboardView;
+    DashboardViewBean dashboardView;
 
     protected String titulo;
     protected String descripcion;
@@ -62,24 +61,8 @@ public class TaskBean implements Serializable{
 
     @PostConstruct
     public void init() {
-
-        
         Projects selectedProject = loginBean.getSelectedProject();
         estados = selectedProject.getEstados();
-//        byte[] estadoPro = selectedProject.getEstados();
-//        if(estadoPro != null){
-//            try {
-//                InputStream input = new ByteArrayInputStream(estadoPro);
-//                Gson g = new Gson();
-//                BufferedReader b;
-//                b = new BufferedReader(new InputStreamReader(input, "UTF-8"));
-//                Estados[] fromJson = g.fromJson(b, Estados[].class);
-//                estados = fromJson;
-//            } catch (UnsupportedEncodingException ex) {
-//                Logger.getLogger(TaskBean.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-
     }
 
     public String getTitulo() {

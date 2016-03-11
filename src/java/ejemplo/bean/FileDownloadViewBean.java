@@ -6,11 +6,9 @@
 package ejemplo.bean;
 
 import ejemplo.collection.Task;
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
-import org.apache.commons.io.FilenameUtils;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.stereotype.Component;
@@ -20,7 +18,7 @@ import org.springframework.stereotype.Component;
  * @author inftel20
  */
 @Component
-public class FileDownloadView {
+public class FileDownloadViewBean {
 
     
 
@@ -31,7 +29,7 @@ public class FileDownloadView {
      */
     
      
-    public FileDownloadView() {  
+    public FileDownloadViewBean() {  
 
     }
 
